@@ -299,17 +299,12 @@ let products = [
     }
 ];
 
-let cart = [{
-    id: 2,
-    name: "mứt",
-    price: 80000,
-    quantity: 21,
-    category: "món ăn dân tộc Kinh"
-}];
-let n = 4;
-let inputidcart = 2;
-let stcnumbers = 1;
-let guessprice = 180000;
+let cart = [];
+let n = 2;
+let inputidcart = 0;
+let stcnumbers = 0;
+let guessprice = 0;
+let cartquantity = 0;
 switch (n) {
     case 1:
         for (let key in products) {
@@ -318,7 +313,8 @@ switch (n) {
         break;
     case 2:
         inputidcart = 2;
-        stcnumbers = 1;
+        stcnumbers = 2;
+        guessprice = 180000;
         let found = false;
         for (let key in products) {
             if (inputidcart === products[key].id) {
@@ -328,7 +324,9 @@ switch (n) {
                     && products[key].quantity > 0
                     && guessprice >= (products[key].price) * inputidcart) {
                     products[key].quantity = products[key].quantity - stcnumbers;
-                    cart.quantity = stcnumbers;
+                    for (let i = 0; i <= cart.length - 1; i = i + 1) {
+                        cartquantity = stcnumbers;
+                    }
                     console.log("Giỏ hàng hiện tại:", cart);
                 } else {
                     console.log("Số lượng không hợp lệ hoặc giá tiền không đủ!");;
@@ -361,8 +359,9 @@ switch (n) {
         break;
     case 4:
         let total = 0;
+        cart.quantity = stcnumbers;
         for (let i = 0; i <= cart.length - 1; i = i + 1) {
-            total = total + cart[i].quantity * cart[i].price;
+            total = total + cartquantity * cart[i].price;
         } console.log(total);
         break;
     case 5:
