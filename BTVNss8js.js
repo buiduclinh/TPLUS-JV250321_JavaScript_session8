@@ -163,84 +163,215 @@
 // price: Giá sách.
 
 // isAvailable: Trạng thái mượn sách (true/false).
-let loop = true;
-let books = [
-    { id: "1", title: "A", author: "X", year: "11", price: "11", isAvailable: true },
-    { id: "2", title: "B", author: "Y", year: "22", price: "12", isAvailable: false },
-    { id: "3", title: "C", author: "Z", year: "33", price: "13", isAvailable: true },
-    { id: "4", title: "D", author: "M", year: "44", price: "14", isAvailable: false },
-    { id: "5", title: "E", author: "N", year: "55", price: "15", isAvailable: true },
-]
+// let loop = true;
+// let books = [
+//     { id: "1", title: "A", author: "X", year: "11", price: "11", isAvailable: true },
+//     { id: "2", title: "B", author: "Y", year: "22", price: "12", isAvailable: false },
+//     { id: "3", title: "C", author: "Z", year: "33", price: "13", isAvailable: true },
+//     { id: "4", title: "D", author: "M", year: "44", price: "14", isAvailable: false },
+//     { id: "5", title: "E", author: "N", year: "55", price: "15", isAvailable: true },
+// ]
 
-let choise = 6;
-// 1. Thêm sách mới.
-// 2. Hiển thị danh sách sách.
-// 3. Tìm kiếm sách theo tiêu đề.
-// 4. Cập nhật trạng thái mượn/trả sách theo id sách.
-// 5. Xóa sách theo id sách ra khỏi danh sách.
-// 6. Sắp xếp sách theo giá tăng dần.
-// 7. Thoát.
-switch (choise) {
+// let choise = 6;
+// // 1. Thêm sách mới.
+// // 2. Hiển thị danh sách sách.
+// // 3. Tìm kiếm sách theo tiêu đề.
+// // 4. Cập nhật trạng thái mượn/trả sách theo id sách.
+// // 5. Xóa sách theo id sách ra khỏi danh sách.
+// // 6. Sắp xếp sách theo giá tăng dần.
+// // 7. Thoát.
+// switch (choise) {
+//     case 1:
+//         books.push({ id: "6", title: "F", author: "FF", year: "66", price: "16", isAvailable: false })
+//         break;
+//     case 2:
+//         for (const key in books) {
+//             console.log(books[key]);
+//         }
+//         break;
+//     case 3:
+//         let searchtitle = "A";
+//         for (const key in books) {
+//             if (searchtitle.toLowerCase() === books[key].title.toLowerCase()) {
+//                 console.log(books[key]);
+//             }
+//         }
+//         break;
+//     case 4:
+//         let searchid = "";
+//         for (const key in books) {
+//             if (searchid.toLowerCase() === books[key].id.toLowerCase()) {
+//                 console.log(books[key].isAvailable);
+//                 let bore = "";
+//                 if (bore === "0") {
+//                     books[key].isAvailable = false;
+//                     console.log(books[key].isAvailable);
+//                 } if (bore === "1") {
+//                     books[key].isAvailable = true;
+//                     console.log(books[key].isAvailable);
+//                 } else {
+//                     console.log("error");
+//                 }
+//             }
+//         }
+//         break;
+//     case 5:
+//         let delid = "";
+//         for (const key in books) {
+//             if (delid.toLowerCase() === books[key].id.toLowerCase()) {
+//                 books.splice(key, 1);
+//             }
+//         }
+//         break;
+//     case 6:
+//         // for (const key1 in books) {
+//         //     for (const key2 in books)
+//         for (let i = 0; i <= books.length - 1; i = i + 1) {
+//             for (let j = 0; j <= books.length - 1; j = j + 1) {
+//                 if (books[i].price > books[j].price) {
+//                     [books[i], books[j]] = [books[j], books[i]]
+//                 }
+//             }
+//         }
+//         break;
+//     case 7:
+//         loop = false;
+//         break;
+
+//     default:
+//         console.log("error");
+//         break;
+// }
+
+// console.log(books);
+
+
+//B9
+// Cửa hàng sẽ bán các sản phẩm:
+
+
+
+// Khởi tạo giỏ hàng let cart=[].
+
+// Viết chương trình  cho phép người dùng:
+
+// 1.Hiển thị các sản phẩm theo tên danh mục.
+// 2.Chọn sản phẩm để mua bằng cách nhập id sản phẩm.
+//      -Sản phẩm không có trong cửa hàng hiển thị thông báo.
+//      -Sản phẩm có trong cửa hàng
+//          +Cho người dùng nhập số lượng sản phẩm muốn mua, 
+//           mua thành công số lượng sản phẩm trong cửa hàng sẽ bị trừ đi.
+//          +Số lượng sản phẩm trong cửa hàng = 0 hoặc không đủ hiển thị thông báo.
+// 3.Sắp xếp các sản phẩm trong cửa hàng theo giá:
+//      -Tăng dần.
+//      -Giảm dần.
+// 4.Tính số tiền thanh toán trong giỏ hàng.
+// 5.Thoát.
+let loop = true;
+let products = [
+    {
+        id: 1,
+        name: "mèn mén",
+        price: 20000,
+        quantity: 20,
+        category: "món ăn dân tộc Mông"
+    },
+    {
+        id: 2,
+        name: "mứt",
+        price: 80000,
+        quantity: 21,
+        category: "món ăn dân tộc Kinh"
+    },
+    {
+        id: 3,
+        name: "cơm lam",
+        price: 40000,
+        quantity: 15,
+        category: "món ăn dân tộc Mông"
+    },
+    {
+        id: 4,
+        name: "bánh đậu xanh",
+        price: 60000,
+        quantity: 30,
+        category: "món ăn dân tộc kinh"
+    }
+];
+
+let cart = [{
+    id: 2,
+    name: "mứt",
+    price: 80000,
+    quantity: 21,
+    category: "món ăn dân tộc Kinh"
+}];
+let n = 4;
+let inputidcart = 2;
+let stcnumbers = 1;
+let guessprice = 180000;
+switch (n) {
     case 1:
-        books.push({ id: "6", title: "F", author: "FF", year: "66", price: "16", isAvailable: false })
+        for (let key in products) {
+            console.log(products[key]);
+        }
         break;
     case 2:
-        for (const key in books) {
-            console.log(books[key]);
+        inputidcart = 2;
+        stcnumbers = 1;
+        let found = false;
+        for (let key in products) {
+            if (inputidcart === products[key].id) {
+                found = true;
+                cart.push(products[key]);
+                if (stcnumbers <= products[key].quantity
+                    && products[key].quantity > 0
+                    && guessprice >= (products[key].price) * inputidcart) {
+                    products[key].quantity = products[key].quantity - stcnumbers;
+                    cart.quantity = stcnumbers;
+                    console.log("Giỏ hàng hiện tại:", cart);
+                } else {
+                    console.log("Số lượng không hợp lệ hoặc giá tiền không đủ!");;
+                }
+            }
+        }
+        if (found === false) {
+            console.log("Sản phẩm không có trong cửa hàng");
         }
         break;
     case 3:
-        let searchtitle = "A";
-        for (const key in books) {
-            if (searchtitle.toLowerCase() === books[key].title.toLowerCase()) {
-                console.log(books[key]);
+        //nhập choise = có hoặc không?!
+        let choise = true;
+        for (let i = 0; i <= products.length - 1; i = i + 1) {
+            for (let j = 0; j <= products.length - 1; j = j + 1) {
+                if (choise === true) {
+                    if (products[i].price > products[j].price) {
+                        [products[i], products[j]] = [products[j], products[i]];
+                        //sắp xếp theo thứ tự giảm dần theo giá
+                    }
+                }
+                if (choise === false) {
+                    if (products[i].price < products[j].price) {
+                        [products[i], products[j]] = [products[j], products[i]];
+                        //sắp xếp theo thứ tự tăng dần theo giá
+                    }
+                }
             }
         }
         break;
     case 4:
-        let searchid = "";
-        for (const key in books) {
-            if (searchid.toLowerCase() === books[key].id.toLowerCase()) {
-                console.log(books[key].isAvailable);
-                let bore = "";
-                if (bore === "0") {
-                    books[key].isAvailable = false;
-                    console.log(books[key].isAvailable);
-                } if (bore === "1") {
-                    books[key].isAvailable = true;
-                    console.log(books[key].isAvailable);
-                } else {
-                    console.log("error");
-                }
-            }
-        }
+        let total = 0;
+        for (let i = 0; i <= cart.length - 1; i = i + 1) {
+            total = total + cart[i].quantity * cart[i].price;
+        } console.log(total);
         break;
     case 5:
-        let delid = "";
-        for (const key in books) {
-            if (delid.toLowerCase() === books[key].id) {
-                books.splice(key, 1);
-            }
-        }
-        break;
-    case 6:
-        // for (const key1 in books) {
-        //     for (const key2 in books)
-        for (let i = 0; i <= books.length - 1; i = i + 1) {
-            for (let j = 0; j <= books.length - 1; j = j + 1) {
-                if (books[i].price > books[j].price) {
-                    [books[i], books[j]] = [books[j], books[i]]
-                }
-            }
-        }
-        break;
-    case 7:
         loop = false;
         break;
 
     default:
-        console.log("error");
+        console.log("Giá trị nhập không hợp lệ");
         break;
 }
 
-console.log(books);
+console.log(products);
