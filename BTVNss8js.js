@@ -300,69 +300,27 @@ let products = [
 ];
 
 let cart = [];
-let n = 2;
+let n = 4;
 let inputidcart = 0;
 let stcnumbers = 0;
 let guessprice = 0;
 let cartquantity = 0;
 switch (n) {
     case 1:
-        for (let key in products) {
-            console.log(products[key]);
-        }
+        displayProducts(products)
         break;
     case 2:
         inputidcart = 2;
         stcnumbers = 2;
         guessprice = 180000;
-        let found = false;
-        for (let key in products) {
-            if (inputidcart === products[key].id) {
-                found = true;
-                cart.push(products[key]);
-                if (stcnumbers <= products[key].quantity
-                    && products[key].quantity > 0
-                    && guessprice >= (products[key].price) * inputidcart) {
-                    products[key].quantity = products[key].quantity - stcnumbers;
-                    for (let i = 0; i <= cart.length - 1; i = i + 1) {
-                        cartquantity = stcnumbers;
-                    }
-                    console.log("Giỏ hàng hiện tại:", cart);
-                } else {
-                    console.log("Số lượng không hợp lệ hoặc giá tiền không đủ!");;
-                }
-            }
-        }
-        if (found === false) {
-            console.log("Sản phẩm không có trong cửa hàng");
-        }
+        addToCart(products)
         break;
     case 3:
         //nhập choise = có hoặc không?!
-        let choise = true;
-        for (let i = 0; i <= products.length - 1; i = i + 1) {
-            for (let j = 0; j <= products.length - 1; j = j + 1) {
-                if (choise === true) {
-                    if (products[i].price > products[j].price) {
-                        [products[i], products[j]] = [products[j], products[i]];
-                        //sắp xếp theo thứ tự giảm dần theo giá
-                    }
-                }
-                if (choise === false) {
-                    if (products[i].price < products[j].price) {
-                        [products[i], products[j]] = [products[j], products[i]];
-                        //sắp xếp theo thứ tự tăng dần theo giá
-                    }
-                }
-            }
-        }
+        sortProducts(products)
         break;
     case 4:
-        let total = 0;
-        cart.quantity = stcnumbers;
-        for (let i = 0; i <= cart.length - 1; i = i + 1) {
-            total = total + cartquantity * cart[i].price;
-        } console.log(total);
+        calculateTotal(cart)
         break;
     case 5:
         loop = false;
@@ -373,4 +331,59 @@ switch (n) {
         break;
 }
 
+function displayProducts(products) {
+    for (let key in products) {
+        console.log(products[key]);
+    }
+}
+function addToCart(products) {
+    let found = false;
+    for (let key in products) {
+        if (inputidcart === products[key].id) {
+            found = true;
+            cart.push(products[key]);
+            if (stcnumbers <= products[key].quantity
+                && products[key].quantity > 0
+                && guessprice >= (products[key].price) * inputidcart) {
+                products[key].quantity = products[key].quantity - stcnumbers;
+                for (let i = 0; i <= cart.length - 1; i = i + 1) {
+                    cartquantity = stcnumbers;
+                }
+                console.log("Giỏ hàng hiện tại:", cart);
+            } else {
+                console.log("Số lượng không hợp lệ hoặc giá tiền không đủ!");;
+            }
+        }
+    }
+    if (found === false) {
+        console.log("Sản phẩm không có trong cửa hàng");
+    }
+}
+
+function sortProducts(products) {
+    let choise = true;
+    for (let i = 0; i <= products.length - 1; i = i + 1) {
+        for (let j = 0; j <= products.length - 1; j = j + 1) {
+            if (choise === true) {
+                if (products[i].price > products[j].price) {
+                    [products[i], products[j]] = [products[j], products[i]];
+                    //sắp xếp theo thứ tự giảm dần theo giá
+                }
+            }
+            if (choise === false) {
+                if (products[i].price < products[j].price) {
+                    [products[i], products[j]] = [products[j], products[i]];
+                    //sắp xếp theo thứ tự tăng dần theo giá
+                }
+            }
+        }
+    }
+}
+function calculateTotal(cart) {
+    let total = 0;
+    cart.quantity = stcnumbers;
+    for (let i = 0; i <= cart.length - 1; i = i + 1) {
+        total = total + cartquantity * cart[i].price;
+    } console.log(total);
+}
 console.log(products);
