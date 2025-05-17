@@ -97,7 +97,7 @@ function addToCart(products) {
             cart.push(newproduct);
             if (stcnumbers <= products[key].quantity
                 && products[key].quantity > 0
-                && guessprice >= (products[key].price) * inputidcart) {
+                && guessprice >= (products[key].price) * stcnumbers) {
                 products[key].quantity = products[key].quantity - stcnumbers;
                 for (let i = 0; i <= cart.length - 1; i = i + 1) {
                     newproduct.quantity = stcnumbers;
