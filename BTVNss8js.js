@@ -267,6 +267,7 @@
 //      -Giảm dần.
 // 4.Tính số tiền thanh toán trong giỏ hàng.
 // 5.Thoát.
+
 let loop = true;
 let products = [
     {
@@ -300,7 +301,7 @@ let products = [
 ];
 
 let cart = [];
-let n = 4;
+let n = 2;
 let inputidcart = 0;
 let stcnumbers = 0;
 let guessprice = 0;
@@ -311,8 +312,8 @@ switch (n) {
         break;
     case 2:
         inputidcart = 2;
-        stcnumbers = 2;
-        guessprice = 180000;
+        stcnumbers = 3;
+        guessprice = 1800000;
         addToCart(products)
         break;
     case 3:
@@ -339,15 +340,16 @@ function displayProducts(products) {
 function addToCart(products) {
     let found = false;
     for (let key in products) {
+        let newproduct = {...products[key] };
         if (inputidcart === products[key].id) {
             found = true;
-            cart.push(products[key]);
+            cart.push(newproduct);
             if (stcnumbers <= products[key].quantity
                 && products[key].quantity > 0
                 && guessprice >= (products[key].price) * inputidcart) {
                 products[key].quantity = products[key].quantity - stcnumbers;
                 for (let i = 0; i <= cart.length - 1; i = i + 1) {
-                    cartquantity = stcnumbers;
+                    newproduct.quantity = stcnumbers;
                 }
                 console.log("Giỏ hàng hiện tại:", cart);
             } else {
