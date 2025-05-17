@@ -267,8 +267,12 @@
 //      -Giảm dần.
 // 4.Tính số tiền thanh toán trong giỏ hàng.
 // 5.Thoát.
-
 let loop = true;
+let inputidcart = 0;
+let stcnumbers = 0;
+let guessprice = +prompt(`Nhập số tiền hiện tại mà bạn đang có: `);
+console.log("Số tiền của bạn sau khi nhập: ", guessprice);
+let cart = [];
 let products = [
     {
         id: 1,
@@ -299,37 +303,38 @@ let products = [
         category: "món ăn dân tộc kinh"
     }
 ];
+while (loop) {
+    let n = +prompt(`
+        ---Menu---
+1.Hiển thị các sản phẩm theo tên danh mục.
+2.Chọn sản phẩm để mua bằng cách nhập id sản phẩm.
+3.Sắp xếp các sản phẩm trong cửa hàng theo giá:
+4.Tính số tiền thanh toán trong giỏ hàng.
+5.Thoát.
+Lựa chọn của bạn là:`);
 
-let cart = [];
-let n = 2;
-let inputidcart = 0;
-let stcnumbers = 0;
-let guessprice = 0;
-let cartquantity = 0;
-switch (n) {
-    case 1:
-        displayProducts(products)
-        break;
-    case 2:
-        inputidcart = 2;
-        stcnumbers = 3;
-        guessprice = 1800000;
-        addToCart(products)
-        break;
-    case 3:
-        //nhập choise = có hoặc không?!
-        sortProducts(products)
-        break;
-    case 4:
-        calculateTotal(cart)
-        break;
-    case 5:
-        loop = false;
-        break;
 
-    default:
-        console.log("Giá trị nhập không hợp lệ");
-        break;
+    switch (n) {
+        case 1:
+            displayProducts(products)
+            break;
+        case 2:
+            addToCart(products)
+            break;
+        case 3:
+            sortProducts(products)
+            break;
+        case 4:
+            calculateTotal(cart)
+            break;
+        case 5:
+            loop = false;
+            break;
+
+        default:
+            console.log("Giá trị nhập không hợp lệ");
+            break;
+    }
 }
 
 function displayProducts(products) {
@@ -338,18 +343,37 @@ function displayProducts(products) {
     }
 }
 function addToCart(products) {
+    inputidcart = +prompt(`Nhập id sản phẩm: `);
+    stcnumbers = +prompt(`Nhập số lượng sản phầm `);
     let found = false;
     for (let key in products) {
-        let newproduct = {...products[key] };
+        // Nếu tìm thấy sản phẩm theo ID
         if (inputidcart === products[key].id) {
             found = true;
-            cart.push(newproduct);
+            // Kiểm tra số lượng hàng tồn kho và số tiền có đủ không
             if (stcnumbers <= products[key].quantity
                 && products[key].quantity > 0
                 && guessprice >= (products[key].price) * stcnumbers) {
+                // Trừ số lượng trong kho
                 products[key].quantity = products[key].quantity - stcnumbers;
+                // Trừ tiền khi mua hàng thành công
+                guessprice = guessprice - (products[key].price * stcnumbers);
+                console.log("Số tiền còn lại sau khi mua hàng: ", guessprice);
+                // Kiểm tra xem sản phẩm đã có trong giỏ hàng hay chưa
+                let productInCart = false;
                 for (let i = 0; i <= cart.length - 1; i = i + 1) {
+                    if (cart[i].id === inputidcart) {
+                        cart[i].quantity = cart[i].quantity + stcnumbers;// Tăng số lượng nếu đã có
+                        productInCart = true;
+                        break;
+                    }
+                }
+                // Nếu chưa có trong giỏ hàng, tạo mới và thêm vào
+                if (productInCart === false) {
+                    // Tạo sản phẩm mới với số lượng đúng
+                    let newproduct = { ...products[key], quantity: stcnumbers };
                     newproduct.quantity = stcnumbers;
+                    cart.push(newproduct);
                 }
                 console.log("Giỏ hàng hiện tại:", cart);
             } else {
@@ -363,6 +387,7 @@ function addToCart(products) {
 }
 
 function sortProducts(products) {
+    //nhập choise = có hoặc không?!
     let choise = true;
     for (let i = 0; i <= products.length - 1; i = i + 1) {
         for (let j = 0; j <= products.length - 1; j = j + 1) {
@@ -383,9 +408,9 @@ function sortProducts(products) {
 }
 function calculateTotal(cart) {
     let total = 0;
-    cart.quantity = stcnumbers;
     for (let i = 0; i <= cart.length - 1; i = i + 1) {
-        total = total + cartquantity * cart[i].price;
-    } console.log(total);
+        total = total + cart[i].quantity * cart[i].price;
+    }
+    console.log("số tiền cần thanh toán là:"+" "+ total);
+    console.log("số tiền bạn còn lại là :"+" "+ guessprice);
 }
-console.log(products);
